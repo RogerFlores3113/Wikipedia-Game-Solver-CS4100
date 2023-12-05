@@ -68,7 +68,7 @@ def find_path_to_target(start_title, target_title, max_iters=15):
 
 if (__name__ == "__main__"):
 
-    paths = find_path_to_target("Storm", "Hawaii")
+    paths = find_path_to_target("Towel", "Table (datab)")
     print("returned path:")
     for i, p in enumerate(paths):
         print(f"step {i}, page: {p}")

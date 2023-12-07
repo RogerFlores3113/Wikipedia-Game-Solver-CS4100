@@ -2,7 +2,7 @@ from Scraper import get_wikipedia_links_with_similarity
 import wikipediaapi
 import heapq
 
-def find_path_to_target(start_title, target_title, max_iters=15):
+def find_path_to_target(start_title, target_title, max_iters=15, similarity_metric="cosine"):
     """
     Find a path from a start Wikipedia page to a target page using cosine similarity.
 
@@ -49,7 +49,7 @@ def find_path_to_target(start_title, target_title, max_iters=15):
         
 
         # otherwise get all links with their cosine similarities
-        links_with_similarity = get_wikipedia_links_with_similarity(current_page, target_page)
+        links_with_similarity = get_wikipedia_links_with_similarity(current_page, target_page, similarity_metric=similarity_metric)
 
         # And add the linked pages to the frontier
         for link_title, (similarity, _) in links_with_similarity.items():
@@ -68,7 +68,10 @@ def find_path_to_target(start_title, target_title, max_iters=15):
 
 if (__name__ == "__main__"):
 
-    paths = find_path_to_target("Storm", "Hawaii")
+    paths = find_path_to_target("Fruit", "Winston Churchill", similarity_metric="hamming") # "cosine" "hamming" "jaccard" "lev"
     print("returned path:")
     for i, p in enumerate(paths):
         print(f"step {i}, page: {p}")
+
+    print("------------------------------------------------------------------------------\n" * 4)
+

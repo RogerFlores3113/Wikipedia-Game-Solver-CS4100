@@ -1,3 +1,8 @@
+#Word-embeddings
+model.bin
+model.bin.vectors.npy
+wikipedia_articles.txt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

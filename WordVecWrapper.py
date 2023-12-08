@@ -6,6 +6,8 @@ import random
 import copy
 
 def find_path_to_target(start_title, target_title, max_iters=50):
+    print("Start: " + start_title)
+    print("Target: " + target_title)
     """
     Find a path from a start Wikipedia page to a target page using cosine similarity.
 
@@ -49,7 +51,7 @@ def find_path_to_target(start_title, target_title, max_iters=50):
         # check if we've reached the target
         if current_title.casefold() == target_title.casefold():
             print("found the target page! Here is the path:")
-            return [start_title] + path
+            return priority_queue, [start_title] + path
 
         # otherwise get all links with their cosine similarities
         links_with_similarity = word_vec_get_wikipedia_links_with_similarity(current_title, target_title)
@@ -62,14 +64,14 @@ def find_path_to_target(start_title, target_title, max_iters=50):
 
     # if we didnt find a path
     print("Unable to find a full path! Here is the path explored thus far:")
-    return [start_title] + path
+    return priority_queue, [start_title] + path
 
 
         
 
 if (__name__ == "__main__"):
 
-    paths = find_path_to_target("Quantum Computing", "Climate policy")
+    _, paths = find_path_to_target("Quantum Computing", "Climate policy")
     print("returned path:")
     for i, p in enumerate(paths):
         print(f"step {i}, page: {p}")

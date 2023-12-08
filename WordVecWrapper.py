@@ -1,6 +1,9 @@
 from Scraperv2 import word_vec_get_wikipedia_links_with_similarity
 import wikipediaapi
 import heapq
+import util
+import random
+import copy
 
 def find_path_to_target(start_title, target_title, max_iters=50):
     """
@@ -21,8 +24,19 @@ def find_path_to_target(start_title, target_title, max_iters=50):
         if not priority_queue:
             break
 
-        # Pop the page with the highest similarity, skipping over those we've already seen
-        _, current_title, path = heapq.heappop(priority_queue)
+        #Epsilon Greedy Implementation
+        random_heap = copy.copy(priority_queue)
+        random.shuffle(random_heap)
+        if util.flipCoin(0.1):
+            # Pop the page with the highest similarity, skipping over those we've already seen
+            _, current_title, path = heapq.heappop(random_heap)
+        else:
+           # Pop the page with the highest similarity, skipping over those we've already seen
+            _, current_title, path = heapq.heappop(priority_queue)
+
+
+        # # Pop the page with the highest similarity, skipping over those we've already seen
+        # _, current_title, path = heapq.heappop(priority_queue)
         
         while current_title in visited:
              _, current_title, path = heapq.heappop(priority_queue)
@@ -51,13 +65,11 @@ def find_path_to_target(start_title, target_title, max_iters=50):
     return [start_title] + path
 
 
-
- 
-
+        
 
 if (__name__ == "__main__"):
 
-    paths = find_path_to_target("Towel", "Table (database)")
+    paths = find_path_to_target("Quantum Computing", "Climate policy")
     print("returned path:")
     for i, p in enumerate(paths):
         print(f"step {i}, page: {p}")

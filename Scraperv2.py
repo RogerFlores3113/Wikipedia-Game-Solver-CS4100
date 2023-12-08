@@ -38,7 +38,7 @@ def word_vec_get_wikipedia_links_with_similarity(input_data, target_title):
         links = {}
         for link in data['parse']['links']:
             if link.get('ns') == 0 and 'exists' in link:
-                link_title = link['*']
+                link_title = link['*']  
                 link_url = "https://en.wikipedia.org/wiki/" + link_title.replace(' ', '_')
                 links[link_title] = link_url
 

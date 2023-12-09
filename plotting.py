@@ -3,13 +3,13 @@ import numpy as np
 
 # Sample data
 approaches = ['Approach 1', 'Approach 2', 'Approach 3']  # Replace with your approach names
-num_runs = 10
+num_runs = 100
 
 # Sample data for time taken, size of priority queue, and accuracy for each approach
 time_taken_data = np.random.rand(num_runs, 3) * 10  # Replace with your actual time taken data
 priority_queue_data = np.random.randint(1, 100, size=(num_runs, 3))  # Replace with your actual priority queue size data
 accuracy_data = np.random.rand(num_runs, 3)  # Replace with your actual accuracy data
-
+ 
 # Min-Max scaling function
 def min_max_scaling(data):
     min_val = np.min(data, axis=0)

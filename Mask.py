@@ -49,7 +49,7 @@ def run_search_program(word_bag, num_runs):
         results.append(similarity)
         # Save variables to a file using pickle.dump
     with open('my_variables.pkl', 'wb') as file:
-        pickle.dump((times, paths, priority_queue, results), file)
+        pickle.dump((times, paths, priority_queue_sizes, results), file)
         print(paths)
         print(results)
 

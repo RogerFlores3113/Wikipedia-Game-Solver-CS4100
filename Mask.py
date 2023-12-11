@@ -40,7 +40,7 @@ def run_search_program(word_bag, num_runs):
         words = random.sample(copy_of_word_bag, 2)
         for item in words:
             copy_of_word_bag.remove(item)
-        priority_queue, path = find_path_to_target(words[0], words[1], 70, False)
+        priority_queue, path = find_path_to_target(words[0], words[1], 70, True, 0.1)
         runtime = time.time() - start_time
         final_word = path[-1]
         similarity = calc_page_similarity(get_page_text(words[1]), get_page_text(final_word))
@@ -52,7 +52,7 @@ def run_search_program(word_bag, num_runs):
         priority_queue_sizes.append(len(priority_queue))
         results.append(similarity)
         # Save variables to a file using pickle.dump
-    with open('my_variables.pkl', 'wb') as file:
+    with open('greedy_DLS.pkl', 'wb') as file:
         pickle.dump((times, paths, priority_queue_sizes, results), file)
         print(paths)
         print(results)

@@ -1,5 +1,5 @@
 import random
-from WordVecWrapper import find_path_to_target
+from ComboAgent import find_path_to_target
 import time
 import pickle
 import matplotlib.pyplot as plt
@@ -52,7 +52,7 @@ def run_search_program(word_bag, num_runs):
         priority_queue_sizes.append(len(priority_queue))
         results.append(similarity)
         # Save variables to a file using pickle.dump
-    with open('greedy_DLS.pkl', 'wb') as file:
+    with open('combo_agent.pkl', 'wb') as file:
         pickle.dump((times, paths, priority_queue_sizes, results), file)
         print(paths)
         print(results)

@@ -5,7 +5,7 @@ import util
 import random
 import copy
 
-def find_path_to_target(start_title, target_title, max_iters=50):
+def find_path_to_target(start_title, target_title, max_iters=50, epsilon_explore = True, epsilon = 0.1):
     print("Start: " + start_title)
     print("Target: " + target_title)
     """
@@ -25,16 +25,19 @@ def find_path_to_target(start_title, target_title, max_iters=50):
     for iteration in range(max_iters):
         if not priority_queue:
             break
-
-        #Epsilon Greedy Implementation
-        random_heap = copy.copy(priority_queue)
-        random.shuffle(random_heap)
-        if util.flipCoin(0.1):
+        if(epsilon_explore):
+            #Epsilon Greedy Implementation
+            random_heap = copy.copy(priority_queue)
+            random.shuffle(random_heap)
+            if util.flipCoin(epsilon):
+                # Pop the page with the highest similarity, skipping over those we've already seen
+                _, current_title, path = heapq.heappop(random_heap)
+            else:
             # Pop the page with the highest similarity, skipping over those we've already seen
-            _, current_title, path = heapq.heappop(random_heap)
+                _, current_title, path = heapq.heappop(priority_queue)
         else:
-           # Pop the page with the highest similarity, skipping over those we've already seen
-            _, current_title, path = heapq.heappop(priority_queue)
+            # Pop the page with the highest similarity, skipping over those we've already seen
+                _, current_title, path = heapq.heappop(priority_queue)
 
 
         # # Pop the page with the highest similarity, skipping over those we've already seen
@@ -71,7 +74,7 @@ def find_path_to_target(start_title, target_title, max_iters=50):
 
 if (__name__ == "__main__"):
 
-    _, paths = find_path_to_target("Quantum Computing", "Climate policy")
+    _, paths = find_path_to_target("Quantum Computing", "Apple")
     print("returned path:")
     for i, p in enumerate(paths):
         print(f"step {i}, page: {p}")

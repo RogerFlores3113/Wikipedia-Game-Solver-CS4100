@@ -5,8 +5,9 @@ import pickle
 import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-import copy
+import numpy as np
 import wikipediaapi
+import copy
 def calc_page_similarity(page_1_text, page_2_text):
     # Create a TF-IDF vectorizer
     vectorizer = TfidfVectorizer()
@@ -27,34 +28,25 @@ def get_page_text(page_title):
         
         return page.text
 #Mask to run wrappers with different parameters
-def run_search_program(word_bag, num_runs):
-    start_time = time.time()
-    times = []
-    priority_queue_sizes = []
-    paths = []
+def run_search_program(word_bag, num_runs, num_epsilons):
     results = []
-    print("--- %s seconds ---" % (time.time() - start_time))
-    for i in range(num_runs):
+    for epsilon in np.arange(0, num_epsilons, 0.025):
+        similarities = []
         copy_of_word_bag = copy.deepcopy(word_bag)
 
-        words = random.sample(copy_of_word_bag, 2)
-        for item in words:
-            copy_of_word_bag.remove(item)
-        priority_queue, path = find_path_to_target(words[0], words[1], 70, False)
-        runtime = time.time() - start_time
-        final_word = path[-1]
-        similarity = calc_page_similarity(get_page_text(words[1]), get_page_text(final_word))
-        start_time = time.time()
-        times.append(runtime)
-        paths.append(path)
-        print(priority_queue)
-        print(len(priority_queue))
-        priority_queue_sizes.append(len(priority_queue))
-        results.append(similarity)
+        for i in range(num_runs):
+            words = random.sample(copy_of_word_bag, 2)
+            for item in words:
+                copy_of_word_bag.remove(item)
+            priority_queue, path = find_path_to_target(words[0], words[1], 70, True, epsilon)
+            final_word = path[-1]
+            similarity = calc_page_similarity(get_page_text(words[1]), get_page_text(final_word))
+            similarities.append(similarity)
+        results.append(np.mean(similarities))
+        similarities = []
         # Save variables to a file using pickle.dump
-    with open('my_variables.pkl', 'wb') as file:
-        pickle.dump((times, paths, priority_queue_sizes, results), file)
-        print(paths)
+    with open('epsilon_results.pkl', 'wb') as file:
+        pickle.dump((results), file)
         print(results)
 
 #Creates bag of words
@@ -69,7 +61,7 @@ def get_words(file_path):
 if (__name__ == "__main__"):
     file_path = 'wikipedia_articles.txt'
     word_bag = get_words(file_path)
-    run_search_program(word_bag, 100)
+    run_search_program(word_bag, 21, 0.50)
 
 
     

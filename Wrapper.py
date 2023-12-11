@@ -68,7 +68,7 @@ def find_path_to_target(start_title, target_title, max_iters=15, similarity_metr
 
 if (__name__ == "__main__"):
 
-    paths = find_path_to_target("Fruit", "Winston Churchill", similarity_metric="hamming") # "cosine" "hamming" "jaccard" "lev"
+    paths = find_path_to_target("Niagra Falls", "Bitcoin", similarity_metric="cosine") # "cosine" "hamming" "jaccard" "lev"
     print("returned path:")
     for i, p in enumerate(paths):
         print(f"step {i}, page: {p}")

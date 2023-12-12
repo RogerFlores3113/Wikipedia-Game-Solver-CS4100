@@ -6,11 +6,11 @@ import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import copy
-import wikipediaapi
+import wikipediaapi 
 def calc_page_similarity(page_1_text, page_2_text):
     # Create a TF-IDF vectorizer
     vectorizer = TfidfVectorizer()
-
+    #hllo
     # Fit and transform the text data
     tfidf_matrix = vectorizer.fit_transform([page_1_text, page_2_text])
 

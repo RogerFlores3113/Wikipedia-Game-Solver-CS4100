@@ -71,12 +71,12 @@ def get_top_100(dictionary):
     sorted_items = sorted(dictionary.items(), key=lambda x: x[1][0], reverse=True)
 
     # Taking the first 100 items
-    slice_index = min(len(sorted_items), 100)
+    slice_index = min(len(sorted_items), 20)
     top_100 = sorted_items[:slice_index]
 
     # Converting the result back into a dictionary
     top_100_dict = dict(top_100)
-    print(len(top_100_dict))
+    print(top_100_dict.keys())
     return top_100_dict
 
 def calc_page_similarity(page_1_text, page_2_text):

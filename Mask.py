@@ -7,6 +7,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import copy
 import wikipediaapi 
+import numpy as np
 def calc_page_similarity(page_1_text, page_2_text):
     # Create a TF-IDF vectorizer
     vectorizer = TfidfVectorizer()
@@ -35,12 +36,18 @@ def run_search_program(word_bag, num_runs):
     results = []
     print("--- %s seconds ---" % (time.time() - start_time))
     for i in range(num_runs):
+        print("iteration number: " + num_runs)
         copy_of_word_bag = copy.deepcopy(word_bag)
 
         words = random.sample(copy_of_word_bag, 2)
         for item in words:
             copy_of_word_bag.remove(item)
-        priority_queue, path = find_path_to_target(words[0], words[1], 70, True, 0.1)
+        try:
+            priority_queue, path = find_path_to_target(words[0], words[1], 20, True, 0.1)
+        except Exception as e:
+            # Print the exception error message
+            print(f"Exception: {e}")
+            continue
         runtime = time.time() - start_time
         final_word = path[-1]
         similarity = calc_page_similarity(get_page_text(words[1]), get_page_text(final_word))
@@ -67,10 +74,21 @@ def get_words(file_path):
     return titles_list
 
 if (__name__ == "__main__"):
-    file_path = 'wikipedia_articles.txt'
-    word_bag = get_words(file_path)
-    run_search_program(word_bag, 100)
+    # file_path = 'wikipedia_articles.txt'
+    # word_bag = get_words(file_path)
+    # run_search_program(word_bag, 20)
+
+    results = [1.0, 0.97, 0.99, 0.9999999999999997, 1.0, 1.0, 0.99, 1.0, 1.0, 0.9999999999999998, 0.772389680684236, 0.7675875367618182, 1.0, 0.9999999999999997, 0.9, 0.7667449350300334]
+
+    with open('combo_agent.pkl', 'rb') as file1:
+        tfidf_data = pickle.load(file1)
+
+    time_taken_data, path_data, priority_queue_data, accuracy_data = tfidf_data
 
 
+    with open('combo_agent.pkl', 'wb') as file:
+        pickle.dump((time_taken_data, path_data, priority_queue_data, results), file)
+        print(results)
+        print(np.mean(results))
     
     

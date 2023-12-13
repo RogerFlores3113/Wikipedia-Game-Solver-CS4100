@@ -36,7 +36,7 @@ def run_search_program(word_bag, num_runs):
     results = []
     print("--- %s seconds ---" % (time.time() - start_time))
     for i in range(num_runs):
-        print("iteration number: " + num_runs)
+        print("iteration number: " + str(i))
         copy_of_word_bag = copy.deepcopy(word_bag)
 
         words = random.sample(copy_of_word_bag, 2)
@@ -78,7 +78,7 @@ if (__name__ == "__main__"):
     # word_bag = get_words(file_path)
     # run_search_program(word_bag, 20)
 
-    results = [1.0, 0.97, 0.99, 0.9999999999999997, 1.0, 1.0, 0.99, 1.0, 1.0, 0.9999999999999998, 0.772389680684236, 0.7675875367618182, 1.0, 0.9999999999999997, 0.9, 0.7667449350300334]
+    results = [0.75, 1.0, 0.99, 1.0, 1.0000000000000002, 0.6139397697441861, 1.0, 1.0, 1.0, 1.0000000000000002, 1.0, 1.0, 1.0000000000000002, 1.0, 1.0, 1.0, 1.0]
 
     with open('combo_agent.pkl', 'rb') as file1:
         tfidf_data = pickle.load(file1)

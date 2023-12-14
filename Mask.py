@@ -90,5 +90,6 @@ if (__name__ == "__main__"):
         pickle.dump((time_taken_data, path_data, priority_queue_data, results), file)
         print(results)
         print(np.mean(results))
+        print("smh")
     
     

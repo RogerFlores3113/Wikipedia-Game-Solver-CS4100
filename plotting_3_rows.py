@@ -19,7 +19,8 @@ with open('combo_agent.pkl', 'rb') as file2:
 
 time_taken_data, path_data, priority_queue_data, accuracy_data = loaded_data
 print(type(loaded_data))
-tfidf_time, tfidf_path_data, tfidf_priority_queue, tfidf_accuracy_data = tfidf_data
+tfidf_time, tfidf_path_data, tfidf_accuracy_data = tfidf_data
+tfidf_priority_queue = np.mean(tfidf_time/2)
 
 total_data = [time_taken_data, path_data]
 print(total_data[0][0])

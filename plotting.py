@@ -2,9 +2,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pickle
 # Sample data
-approaches = ['DLS Epsilon Greedy', 'TFIDF Vectorizer']  # Replace with your approach names
+approaches = ['WordVec Approach', 'TFIDF Vectorizer Approach']  # Replace with your approach names
 num_runs = 100
-file_path = 'my_variables.pkl'
+file_path = 'no_greedy_DLS.pkl'
 
 # Loading the data from the pickle file
 with open(file_path, 'rb') as file:
@@ -16,12 +16,13 @@ with open('my_tfidf.pkl', 'rb') as file1:
 time_taken_data, path_data, priority_queue_data, accuracy_data = loaded_data
 
 tfidf_time, tfidf_priority_queue, tfidf_accuracy_data = tfidf_data
+
 ## Sample data for time taken, size of priority queue, and accuracy for each approach
 #time_taken_data = np.random.rand(num_runs, 3) * 10  # Replace with your actual time taken data
 #priority_queue_data = np.random.randint(1, 100, size=(num_runs, 3))  # Replace with your actual priority queue size data
 #accuracy_data = np.random.rand(num_runs, 3)  # Replace with your actual accuracy data
 
-# Min-Max scaling functionb
+# Min-Max scaling function
 def min_max_scaling(data):
     min_val = np.min(data, axis=0)
     max_val = np.max(data, axis=0)

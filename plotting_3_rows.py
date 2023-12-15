@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pickle
 # Sample data
-approaches = ['DLS No Greedy', 'Combo Agent']  # Replace with your approach names
+approaches = ['No Epsilon WordVec', 'Epsilon WordVec', 'TFIDF Vectorizer', 'Combo Agent']  # Replace with your approach names
 num_runs = 100
 file_path = 'no_greedy_DLS.pkl'
 
@@ -10,7 +10,7 @@ file_path = 'no_greedy_DLS.pkl'
 with open(file_path, 'rb') as file:
     loaded_data = pickle.load(file)
 
-with open('my_tfidf.pkl', 'rb') as file1:
+with open('greedy_DLS.pkl', 'rb') as file1:
     tfidf_data = pickle.load(file1)
 
 
@@ -19,8 +19,7 @@ with open('combo_agent.pkl', 'rb') as file2:
 
 time_taken_data, path_data, priority_queue_data, accuracy_data = loaded_data
 print(type(loaded_data))
-tfidf_time, tfidf_path_data, tfidf_accuracy_data = tfidf_data
-tfidf_priority_queue = np.mean(tfidf_time/2)
+tfidf_time, tfidf_path_data, tfidf_priority_queue, tfidf_accuracy_data = tfidf_data
 
 total_data = [time_taken_data, path_data]
 print(total_data[0][0])

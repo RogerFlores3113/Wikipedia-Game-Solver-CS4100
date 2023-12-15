@@ -33,8 +33,9 @@ runtimes = csvFile['runtimes']
 priority_queue_sizes = []
 finished_or_not = csvFile['finished?']
 similarities = []
+paths = csvFile['pages visited']
 for times in runtimes:
-     priority_queue_sizes.append(times * 4)
+     priority_queue_sizes.append(times * 1)
 
 for index, row in csvFile.iterrows():
      if row['finished?']:  
@@ -49,7 +50,7 @@ print(similarities)
 
 
 with open('my_tfidf.pkl', 'wb') as file:
-        pickle.dump((runtimes, priority_queue_sizes, similarities), file)
+        pickle.dump((runtimes, paths, priority_queue_sizes, similarities), file)
           
 
 

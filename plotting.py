@@ -2,20 +2,25 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pickle
 # Sample data
-approaches = ['WordVec Approach', 'TFIDF Vectorizer Approach']  # Replace with your approach names
+approaches = ['WordVec No Epsilon', 'WordVec Epsilon']  # Replace with your approach names
 num_runs = 100
 file_path = 'no_greedy_DLS.pkl'
 
 # Loading the data from the pickle file
-with open(file_path, 'rb') as file:
+with open("no_greedy_DLS.pkl", 'rb') as file:
     loaded_data = pickle.load(file)
 
-with open('my_tfidf.pkl', 'rb') as file1:
+with open('greedy_DLS.pkl', 'rb') as file1:
     tfidf_data = pickle.load(file1)
 
 time_taken_data, path_data, priority_queue_data, accuracy_data = loaded_data
+for i in range(len(loaded_data[1])):
+    loaded_data[1][i] = len(loaded_data[1][i])
+#loaded_data[1] = len(path_data)
 
-tfidf_time, tfidf_priority_queue, tfidf_accuracy_data = tfidf_data
+tfidf_time, tfidf_path_data, tfidf_priority_queue, tfidf_accuracy_data = tfidf_data
+for i in range(len(tfidf_data[1])):
+    tfidf_data[1][i] = len(tfidf_data[1][i])
 
 ## Sample data for time taken, size of priority queue, and accuracy for each approach
 #time_taken_data = np.random.rand(num_runs, 3) * 10  # Replace with your actual time taken data

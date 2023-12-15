@@ -46,7 +46,6 @@ def word_vec_get_wikipedia_links_with_similarity(input_data, target_title):
         model_file_path = "model.bin"  # Specify the desired file path
         #Using gensim pre-trained model(glove-wiki-gigaword-50)
         wiki_vectors = KeyedVectors.load(model_file_path)
-
         refVector = calculate_title_vector(target_title, wiki_vectors)
         similiarities ={}
         for next_page_title in links.keys():
@@ -70,6 +69,7 @@ def preprocess_title(title):
 # Takes in a pretrained gensim model
 def calculate_title_vector(title, model):
     tokens = preprocess_title(title)
+   
     vectors = [model[word] for word in tokens if word in model]
     
     if vectors:
@@ -90,8 +90,8 @@ def calculate_similarity(vector1, vector2):
 # Test case
 if (__name__ == "__main__"):
    # Test case
-    input_data = "2005 Azores subtropical storm"
-    links = word_vec_get_wikipedia_links_with_similarity(input_data, "Hawaii")
-    #print(links)
-    print(links.items())
+    input_data = "Apple"
+    links = word_vec_get_wikipedia_links_with_similarity(input_data, "Candle")
+    print(links)
+   # print(links.items())
 

@@ -126,6 +126,6 @@ def calculate_hamming_similarity(text1, text2):
 # Test case
 if (__name__ == "__main__"):
     w = wikipediaapi.Wikipedia(user_agent="Wikipedia game solution grapher (flores.r@northeastern.edu)",language="en")
-    target = w.page("Storm")
-    links = get_wikipedia_links_with_similarity("2005_Azores_subtropical_storm", target)
+    target = w.page("Candle")
+    links = get_wikipedia_links_with_similarity("Apple", target)
     print(links)

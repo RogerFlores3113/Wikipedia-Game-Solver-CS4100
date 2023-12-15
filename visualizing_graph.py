@@ -6,17 +6,21 @@ import plotly
 import numpy as np
 import plotly.graph_objs as go
 from sklearn.decomposition import PCA
-
 # Load the pre-trained Word2Vec model
-model_path = '/Users/KevinLu/Downloads/wikipedia/model.bin'
-model = KeyedVectors.load_word2vec_format(model_path, binary=True)
-#wiki_vectors = KeyedVectors.load(model_file_path)
-
-word_vector = model['dog_NOUN']
-
+#Path to gensim model
 model_file_path = "model.bin"  # Specify the desired file path
+model_path = '/Users/KevinLu/Downloads/wikipedia/model.bin'
 
+model = KeyedVectors.load_word2vec_format(model_path, binary=True)
+#Using gensim pre-trained model(glove-wiki-gigaword-50)
 wiki_vectors = KeyedVectors.load(model_file_path)
+
+print(model['life_NOUN'])
+import plotly
+import numpy as np
+import plotly.graph_objs as go
+from sklearn.manifold import TSNE
+
 def append_list(sim_words, words):
     
     list_of_words = []
@@ -30,7 +34,7 @@ def append_list(sim_words, words):
         
     return list_of_words
 
-input_word = 'school_NOUN'
+input_word = 'life_NOUN'
 user_input = [x.strip() for x in input_word.split(',')]
 result_word = []
     
@@ -48,12 +52,8 @@ labels = [word[2] for word in result_word]
 label_dict = dict([(y,x+1) for x,y in enumerate(set(labels))])
 color_map = [label_dict[x] for x in labels]
 
-import plotly
-import numpy as np
-import plotly.graph_objs as go
-from sklearn.decomposition import PCA
 
-def display_pca_scatterplot_3D(model, user_input=None, words=None, label=None, color_map=None, topn=5, sample=10):
+def display_tsne_scatterplot_3D(model, user_input=None, words=None, label=None, color_map=None, perplexity = 0, learning_rate = 0, iteration = 0, topn=5, sample=10):
 
     if words == None:
         if sample > 0:
@@ -63,13 +63,16 @@ def display_pca_scatterplot_3D(model, user_input=None, words=None, label=None, c
     
     word_vectors = np.array([model[w] for w in words])
     
-    three_dim = PCA(random_state=0).fit_transform(word_vectors)[:,:3]
+    three_dim = TSNE(n_components = 3, random_state=0, perplexity = perplexity, learning_rate = learning_rate, n_iter = iteration).fit_transform(word_vectors)[:,:3]
+
+
     # For 2D, change the three_dim variable into something like two_dim like the following:
-    # two_dim = PCA(random_state=0).fit_transform(word_vectors)[:,:2]
+    # two_dim = TSNE(n_components = 2, random_state=0, perplexity = perplexity, learning_rate = learning_rate, n_iter = iteration).fit_transform(word_vectors)[:,:2]
 
     data = []
+
+
     count = 0
-    
     for i in range (len(user_input)):
 
                 trace = go.Scatter3d(
@@ -141,37 +144,6 @@ def display_pca_scatterplot_3D(model, user_input=None, words=None, label=None, c
     plot_figure = go.Figure(data = data, layout = layout)
     plot_figure.show()
     
-display_pca_scatterplot_3D(model, user_input, similar_word, labels, color_map)
 
-# # Preprocess titles
-# def preprocess_title(title):
-#     title = title.lower()
-#     title = re.sub(r'[()]', '', title)
-#     tokens = title.split()
-        
-#     return tokens
-
-# # Calculate title vectors
-# def calculate_title_vector(title, model):
-#     tokens = preprocess_title(title)
-#     vectors = [model[word] for word in tokens if word in model]
-    
-#     if vectors:
-#         return sum(vectors) / len(vectors)
-#     else:
-#         return None
-
-# # Calculate cosine similarity between two title vectors
-# def calculate_similarity(vector1, vector2):
-#     if vector1 is not None and vector2 is not None:
-#         return vector1.dot(vector2) / (np.linalg.norm(vector1) * np.linalg.norm(vector2))
-#     else:
-#         return 0.0
-    
-
-# vector1 = calculate_title_vector("(Apple)", wiki_vectors)
-# vector2 = calculate_title_vector("Apple", wiki_vectors)
-# print(calculate_similarity(vector1, vector2))
-
-# # print(wiki_vectors.most_similar('dog'))
-# # print(wiki_vectors.similarity('dog', 'hello'))
+print (similar_word)
+display_tsne_scatterplot_3D(model, user_input, similar_word, labels, color_map, 5, 500, 10000)

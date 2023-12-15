@@ -133,8 +133,8 @@ def calculate_similarity(vector1, vector2):
 # Test case
 if (__name__ == "__main__"):
    # Test case
-    input_data = "2005 Azores subtropical storm"
-    links = word_vec_get_wikipedia_links_with_similarity(input_data, "Hawaii")
+    input_data = "Apple"
+    links = word_vec_get_wikipedia_links_with_similarity(input_data, "Candle")
     #print(links)
     print(links.items())
 

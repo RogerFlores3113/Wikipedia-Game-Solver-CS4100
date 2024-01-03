@@ -1,7 +1,7 @@
-from Scraperv2 import word_vec_get_wikipedia_links_with_similarity
+from Scrapers.Scraperv3 import word_vec_get_wikipedia_links_with_similarity
 import wikipediaapi
 import heapq
-import util
+import Search_Agents.util as util
 import random
 import copy
 
@@ -74,7 +74,7 @@ def find_path_to_target(start_title, target_title, max_iters=50, epsilon_explore
 
 if (__name__ == "__main__"):
 
-    _, paths = find_path_to_target("Apple", "Candle")
+    _, paths = find_path_to_target("Mount Everest", "Leonardo da Vinci")
     print("returned path:")
     for i, p in enumerate(paths):
         print(f"step {i}, page: {p}")

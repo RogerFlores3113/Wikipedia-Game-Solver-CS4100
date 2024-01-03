@@ -9,11 +9,6 @@ import Levenshtein
 
 
 
-
-
-
-
-
 def get_wikipedia_links_with_similarity(input_data, reference_page : wikipediaapi.WikipediaPage, similarity_metric="cosine"):
     """
     Get Wikipedia page links with cosine similarity to a reference page.

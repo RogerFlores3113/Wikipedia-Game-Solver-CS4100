@@ -1,5 +1,5 @@
 import random
-from ComboAgent import find_path_to_target
+from Search_Agents.ComboAgent import find_path_to_target
 import time
 import pickle
 import matplotlib.pyplot as plt

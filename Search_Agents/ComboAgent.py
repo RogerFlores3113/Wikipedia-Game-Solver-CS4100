@@ -1,7 +1,7 @@
 from Scraperv3 import word_vec_get_wikipedia_links_with_similarity
 import wikipediaapi
 import heapq
-import util
+import Search_Agents.util as util
 import random
 import copy
 

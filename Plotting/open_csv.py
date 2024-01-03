@@ -1,11 +1,13 @@
 import pandas
 import random
-from WordVecWrapper import find_path_to_target
+from Search_Agents.WordVecWrapper import find_path_to_target
 import time
 import pickle
 import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+import sys
+sys.path.append("/Users/KevinLu/Desktop/Wikipedia-Game-Solver-CS4100")
 
 import wikipediaapi
 def get_page_text(page_title):
